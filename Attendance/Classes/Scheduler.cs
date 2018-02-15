@@ -276,9 +276,10 @@ namespace Attendance.Classes
                     return;
                 }
 
+                int t1 = -3;
                 foreach (string wrk in tWrkGrp)
                 {
-
+                    t1 += 1;
                     string jobid = "Job_AutoProcess_" + wrk.Replace("'", "");
                     string triggerid = "Trigger_AutoProcess_" + wrk.Replace("'", "");
 
@@ -293,7 +294,11 @@ namespace Attendance.Classes
                     ITrigger trigger = TriggerBuilder.Create()
                         .WithIdentity(triggerid, "TRG_AutoProcess")
                         .StartNow()
-                        .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(tTime.Hours, tTime.Minutes))
+                        .WithSchedule(
+                            CronScheduleBuilder.DailyAtHourAndMinute(tTime.Hours, tTime.Minutes + t1)
+                            .WithMisfireHandlingInstructionFireAndProceed()
+                            )
+
                         .Build();
 
                     // Tell quartz to schedule the job using our trigger
