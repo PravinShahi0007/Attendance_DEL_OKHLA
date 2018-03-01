@@ -151,6 +151,11 @@ namespace Attendance
             {
                 Globals.G_myscheduler = new Scheduler();
 
+                mnuRFIDUser.Enabled = true;
+                mnuDataDownload.Enabled = true;
+                mnuDataProcess.Enabled = true;
+                mnuAutoMailSender.Enabled = true;
+
                 Form t = Application.OpenForms["frmServerStatus"];
 
                 if (t == null)

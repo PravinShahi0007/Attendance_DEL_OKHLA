@@ -1673,6 +1673,50 @@ namespace Attendance.Forms
                 SelectNextControl(ActiveControl, true, true, true, true);
             }
         }
+
+        private void btnDownClear_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtIPAddClear.Text.Trim()))
+            {
+                MessageBox.Show("Please Enter IP Address", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            DialogResult dr = MessageBox.Show("Are you sure to download logs and clear ?..", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (dr != DialogResult.Yes)
+                return;
+
+            string ip = txtIPAddClear.Text.Trim().ToString();
+            string ioflg = Utils.Helper.GetDescription("Select IOFLG from ReaderConFig where MachineIP ='" + ip + "'", Utils.Helper.constr);
+
+            clsMachine m = new clsMachine(ip, ioflg);
+            string err = string.Empty;
+            List<AttdLog> records = new List<AttdLog>();
+
+            this.Cursor = Cursors.WaitCursor;
+            //try to connect
+            m.Connect(out err);
+
+            string nerr = string.Empty;
+            if (!string.IsNullOrEmpty(err))
+            {
+                m.DisConnect(out nerr);
+                return;
+            }
+
+            //get records
+            m.GetAttdRec(out records, out err);
+
+            this.Cursor = Cursors.Default;
+
+
+            MessageBox.Show("Download Logs & Clear Completed...", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            m.AttdLogClear(out err);
+
+
+            m.DisConnect(out nerr);
+        }
         
     }
 }
