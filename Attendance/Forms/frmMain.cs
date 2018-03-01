@@ -32,7 +32,7 @@ namespace Attendance
             stsUserID.Text = Utils.User.GUserID;
             stsUserDesc.Text = Utils.User.GUserName;
 
-            this.Text = "Attendance System (JSAW): (Server->" + tdb.DataSource + ")";
+            this.Text = "Attendance System (JITF): (Server->" + tdb.DataSource + ")";
         }
 
         private void mnuUserRights_Click(object sender, EventArgs e)

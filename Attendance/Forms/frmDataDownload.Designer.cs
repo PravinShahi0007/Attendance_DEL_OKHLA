@@ -359,7 +359,7 @@
             this.Controls.Add(this.tblp);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmDataDownload";
-            this.Text = "Data Download : Auto Clear is not implemented for testing";
+            this.Text = "Data Download";
             this.Load += new System.EventHandler(this.frmDataDownload_Load);
             this.tblp.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
