@@ -648,7 +648,7 @@ namespace Attendance.Classes
                                 tMsg.MsgType = "Auto Download";
                                 tMsg.Message = ip;
                                 Scheduler.Publish(tMsg);
-                                continue;
+                                //continue;
                             }
                             err = string.Empty;
 
