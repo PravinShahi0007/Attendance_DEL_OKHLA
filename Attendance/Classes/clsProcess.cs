@@ -1404,6 +1404,24 @@ namespace Attendance
                         #endregion Reset_ShiftVars
 
                     }//foreach loop for shift
+
+                    //02-05-2018 : Unknown shift->make it own and calculate, (Contractual Employee)
+                    if(drAttd["ConsIN"] is DateTime  && string.IsNullOrEmpty(drAttd["ConsShift"].ToString()))
+                    {
+                        ShiftStart = Convert.ToDateTime(drAttd["ConsIn"]);
+                        ShiftEnd = ShiftStart.AddHours(8);
+                        
+                        ShiftOutFrom = ShiftEnd.AddMinutes(-30);
+                        ShiftOutTo = ShiftEnd.AddMinutes(30);
+                        ShiftInFrom = ShiftStart.AddMinutes(-30);
+                        ShiftInTo = ShiftEnd.AddMinutes(30);
+                        ShiftBreak = 0;
+                        ShiftHrs = 8;
+                        drAttd["ConsShift"] = "UN";
+                    }
+                    ////02-05-2018 : Unknown shift->make it own and calculate, (Contractual Employee)
+
+
                     #endregion AutoSiftCalc
                 }
                 else
