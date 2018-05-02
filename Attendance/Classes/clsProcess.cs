@@ -1414,7 +1414,7 @@ namespace Attendance
                         ShiftOutFrom = ShiftEnd.AddMinutes(-30);
                         ShiftOutTo = ShiftEnd.AddMinutes(30);
                         ShiftInFrom = ShiftStart.AddMinutes(-30);
-                        ShiftInTo = ShiftEnd.AddMinutes(30);
+                        ShiftInTo = ShiftStart.AddMinutes(30);
                         ShiftBreak = 0;
                         ShiftHrs = 8;
                         drAttd["ConsShift"] = "UN";
