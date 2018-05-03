@@ -1091,6 +1091,18 @@ namespace Attendance
             
             
         }
+
+        private void mnuCopyWrkGrpToOther_Click(object sender, EventArgs e)
+        {
+            Form t = Application.OpenForms["frmMastWrkGrpCopy"];
+
+            if (t == null)
+            {
+                Attendance.Forms.frmMastWrkGrpCopy m = new Attendance.Forms.frmMastWrkGrpCopy();
+                m.MdiParent = this;
+                m.Show();
+            }
+        }
         
 
     }
