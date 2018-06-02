@@ -441,53 +441,55 @@ namespace Attendance
 
                                     #region Check_For_Continueous_Duty
 
-                                    if (drAttd["InPunch1"] != DBNull.Value && drAttd["OutPunch1"] != DBNull.Value && drAttd["InPunch2"] != DBNull.Value && drAttd["OutPunch2"] != DBNull.Value)
-                                    {
-                                        if (Convert.ToDateTime(drAttd["InPunch1"]).ToString("yyyy-MM-dd")
-                                            == Convert.ToDateTime(drAttd["InPunch2"]).ToString("yyyy-MM-dd"))
-                                        {
-                                            TimeSpan outdiff1 = Convert.ToDateTime(drAttd["OutPunch1"]) - Convert.ToDateTime(drAttd["InPunch2"]);
-                                            if (outdiff1.TotalMinutes <= 60 && outdiff1.TotalMinutes >= 0)
-                                            {
-                                                TimeSpan outdiff2 = Convert.ToDateTime(drAttd["InPunch1"]) - Convert.ToDateTime(drAttd["OutPunch1"]);
-                                                if (outdiff2.TotalHours >= 6)
-                                                {
-                                                    drAttd["ConsIn"] = drAttd["InPunch1"];
-                                                    drAttd["ConsOut"] = drAttd["OutPunch2"];
-                                                    daAttdData.Update(dsAttdData, "AttdData");
-                                                }
-                                            }
-                                        }
-                                    }
+                                    //if (drAttd["InPunch1"] != DBNull.Value && drAttd["OutPunch1"] != DBNull.Value && drAttd["InPunch2"] != DBNull.Value && drAttd["OutPunch2"] != DBNull.Value)
+                                    //{
+                                    //    //if (Convert.ToDateTime(drAttd["InPunch1"]).ToString("yyyy-MM-dd")
+                                    //    //    == Convert.ToDateTime(drAttd["InPunch2"]).ToString("yyyy-MM-dd"))
+                                    //    //{
+                                    //    //    TimeSpan outdiff1 = Convert.ToDateTime(drAttd["OutPunch1"]) - Convert.ToDateTime(drAttd["InPunch2"]);
+                                    //    //    if (outdiff1.TotalMinutes <= 60 && outdiff1.TotalMinutes >= 0)
+                                    //    //    {
+                                    //    //        TimeSpan outdiff2 = Convert.ToDateTime(drAttd["InPunch1"]) - Convert.ToDateTime(drAttd["OutPunch1"]);
+                                    //    //        if (outdiff2.TotalHours >= 6)
+                                    //    //        {
+                                    //    //            drAttd["ConsIn"] = drAttd["InPunch1"];
+                                    //    //            drAttd["ConsOut"] = drAttd["OutPunch2"];
+                                    //    //            daAttdData.Update(dsAttdData, "AttdData");
+                                    //    //        }
+                                    //    //    }
+                                    //    //}
+
+                                        
+                                    //}
                                     #endregion Check_For_Continueous_Duty
 
                                     #region Check_For_Maximum_Hours
 
-                                    if (drAttd["InPunch1"] != DBNull.Value && drAttd["OutPunch1"] != DBNull.Value && drAttd["InPunch2"] != DBNull.Value && drAttd["OutPunch2"] != DBNull.Value)
-                                    {
-                                        if (Convert.ToDateTime(drAttd["OutPunch2"]) > Convert.ToDateTime(drAttd["OutPunch1"]))
-                                        {
-                                            if (Convert.ToDateTime(drAttd["InPunch1"]).ToString("yyyy-MM-dd")
-                                            == Convert.ToDateTime(drAttd["InPunch2"]).ToString("yyyy-MM-dd"))
-                                            {
-                                                if (Convert.ToDouble(drAttd["WrkHrs1"]) > Convert.ToDouble(drAttd["WrkHrs2"]))
-                                                {
-                                                    drAttd["ConsIn"] = drAttd["InPunch1"];
-                                                    drAttd["ConsOut"] = drAttd["OutPunch1"];
-                                                    drAttd["ConsWrkHrs"] = drAttd["WrkHrs1"];
-                                                    daAttdData.Update(dsAttdData, "AttdData");
-                                                }
-                                                else
-                                                {
-                                                    drAttd["ConsIn"] = drAttd["InPunch2"];
-                                                    drAttd["ConsOut"] = drAttd["OutPunch2"];
-                                                    drAttd["ConsWrkHrs"] = drAttd["WrkHrs2"];
-                                                    daAttdData.Update(dsAttdData, "AttdData");
-                                                }
-                                            }
+                                    //if (drAttd["InPunch1"] != DBNull.Value && drAttd["OutPunch1"] != DBNull.Value && drAttd["InPunch2"] != DBNull.Value && drAttd["OutPunch2"] != DBNull.Value)
+                                    //{
+                                    //    //if (Convert.ToDateTime(drAttd["OutPunch2"]) > Convert.ToDateTime(drAttd["OutPunch1"]))
+                                    //    //{
+                                    //    //    if (Convert.ToDateTime(drAttd["InPunch1"]).ToString("yyyy-MM-dd")
+                                    //    //    == Convert.ToDateTime(drAttd["InPunch2"]).ToString("yyyy-MM-dd"))
+                                    //    //    {
+                                    //    //        if (Convert.ToDouble(drAttd["WrkHrs1"]) > Convert.ToDouble(drAttd["WrkHrs2"]))
+                                    //    //        {
+                                    //    //            drAttd["ConsIn"] = drAttd["InPunch1"];
+                                    //    //            drAttd["ConsOut"] = drAttd["OutPunch1"];
+                                    //    //            drAttd["ConsWrkHrs"] = drAttd["WrkHrs1"];
+                                    //    //            daAttdData.Update(dsAttdData, "AttdData");
+                                    //    //        }
+                                    //    //        else
+                                    //    //        {
+                                    //    //            drAttd["ConsIn"] = drAttd["InPunch2"];
+                                    //    //            drAttd["ConsOut"] = drAttd["OutPunch2"];
+                                    //    //            drAttd["ConsWrkHrs"] = drAttd["WrkHrs2"];
+                                    //    //            daAttdData.Update(dsAttdData, "AttdData");
+                                    //    //        }
+                                    //    //    }
 
-                                        }
-                                    }
+                                    //    //}
+                                    //}
                                     #endregion Check_For_Maximum_Hours
 
                                     #region Double_Check_ConsIn
@@ -739,25 +741,8 @@ namespace Attendance
                                         drAttd["ConsOverTime"] = 0;
                                         drAttd["GracePeriod"] = "";
                                     }
-                                    else
-                                    {
-                                        //bugfix : 02/05/2018 : Sanction Ot on WO also considered if employee did not come.
-                                        if (!string.IsNullOrEmpty(drAttd["ConsIn"].ToString()) && !string.IsNullOrEmpty(drAttd["ConsOut"].ToString()))
-                                        {
-                                            double Overtime = 0;
-                                            Overtime = Convert.ToDouble(drAttd["ConsOverTime"]);
-
-                                            if (Overtime >= 1)
-                                            {
-                                                drAttd["ConsOverTime"] = Math.Truncate(Overtime);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            drAttd["ConsOverTime"] = 0;
-                                        }
-                                        //02/05/2018
-                                    }
+                                    
+                                    
 
                                     daAttdData.Update(dsAttdData, "AttdData");
 
@@ -1943,6 +1928,10 @@ namespace Attendance
                 #region OTCalc
             OTCalc:
 
+
+
+
+
                 if (drAttd["Status"].ToString() == "A" && Convert.ToBoolean(drAttd["HalfDay"]) == true)
                 {
                     drAttd["HalfDay"] = 0;
@@ -1974,7 +1963,7 @@ namespace Attendance
                     return;
                 }
 
-
+                
 
                 OverTime = 0;
                 
@@ -2125,6 +2114,16 @@ namespace Attendance
 
                 }
 
+                //new 02-06-2018- Double Duty OverTime Considered
+                if (drAttd["WrkHrs1"] != DBNull.Value && drAttd["WrkHrs2"] != DBNull.Value && drAttd["ConsOverTime"] != DBNull.Value)
+                {
+                    if (Convert.ToDouble(drAttd["WrkHrs1"]) >= 8 && Convert.ToDouble(drAttd["WrkHrs2"]) > 4)
+                    {
+                        drAttd["ConsOverTime"] = Convert.ToDouble(drAttd["ConsOverTime"]) + Math.Truncate(Convert.ToDouble(drAttd["WrkHrs2"]));
+                        drAttd["CalcOvertime"] = Convert.ToDouble(drAttd["ConsOverTime"]) + Math.Truncate(Convert.ToDouble(drAttd["WrkHrs2"]));
+                        drAttd["ConsWrkHrs"] = Convert.ToDouble(drAttd["WrkHrs1"]) + Math.Truncate(Convert.ToDouble(drAttd["WrkHrs2"]));
+                    }
+                }
                
                 daAttdData.Update(dsAttdData, "AttdData");
 
