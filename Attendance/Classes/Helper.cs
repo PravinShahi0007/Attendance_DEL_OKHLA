@@ -69,7 +69,7 @@ namespace Utils
         static public string GetUserDataPath()
         {
             string dir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            dir = System.IO.Path.Combine(dir, "AttendanceSystemJITF");
+            dir = System.IO.Path.Combine(dir, "AttendanceSystemOKH");
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
             return dir;

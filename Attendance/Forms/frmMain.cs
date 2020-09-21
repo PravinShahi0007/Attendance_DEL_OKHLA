@@ -17,6 +17,7 @@ using System.IO;
 using System.Net;
 using ConnectUNCWithCredentials;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace Attendance
 {
@@ -32,7 +33,7 @@ namespace Attendance
             stsUserID.Text = Utils.User.GUserID;
             stsUserDesc.Text = Utils.User.GUserName;
 
-            this.Text = "Attendance System (JITF): (Server->" + tdb.DataSource + ")";
+            this.Text = "Attendance System : OKH (Server->" + tdb.DataSource + ",DB->" + tdb.DbName + ")";
         }
 
         private void mnuUserRights_Click(object sender, EventArgs e)
@@ -195,18 +196,14 @@ namespace Attendance
                                                       Globals.G_NetworkDomain,
                                                       Globals.G_NetworkPass))
                         {
-                            string fullpath = Path.Combine(Globals.G_UpdateChkPath, "AttendanceJITF.exe");
+                            string fullpath = Path.Combine(Globals.G_UpdateChkPath, "AttendanceOKH.exe");
                             if (File.Exists(fullpath))
                             {
                                 servermodified = File.GetLastWriteTime(fullpath);
                             }
                         }
                     }
-
-                    
-                    
-                    
-                    
+                                        
                     localmodified = File.GetLastWriteTime(localfile);
                     if (servermodified > localmodified)
                     {
@@ -1099,6 +1096,58 @@ namespace Attendance
             if (t == null)
             {
                 Attendance.Forms.frmMastWrkGrpCopy m = new Attendance.Forms.frmMastWrkGrpCopy();
+                m.MdiParent = this;
+                m.Show();
+            }
+        }
+
+        private void mnuReports_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(Globals.G_ReportServiceURL))
+            {
+                string sql = "Select Config_Val from Mast_OtherConfig where Config_Key = 'ReportServerBrowseURL'";
+                string turl = Utils.Helper.GetDescription(sql, Utils.Helper.constr);
+                if (!string.IsNullOrEmpty(turl))
+                {
+                    Process.Start("IExplore.exe", turl);
+                }
+                else
+                {
+                    MessageBox.Show("'ReportServerBrowseURL'<-ConfigKey is not configured, please configure from Admin->Config Key", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }
+
+        private void mnuEmpBulkChange_Click(object sender, EventArgs e)
+        {
+            Form t = Application.OpenForms["frmMastEmpBulkChange"];
+
+            if (t == null)
+            {
+                Attendance.Forms.frmMastEmpBulkChange m = new Attendance.Forms.frmMastEmpBulkChange();
+                m.MdiParent = this;
+                m.Show();
+            }
+        }
+
+        private void mnuConfig_KeyVal_Click(object sender, EventArgs e)
+        {
+            Form t = Application.OpenForms["frmMastConfigKeys"];
+            if (t == null)
+            {
+                Attendance.Forms.frmMastConfigKeys m = new Attendance.Forms.frmMastConfigKeys();
+                m.MdiParent = this;
+                m.Show();
+            }
+        }
+
+        private void mnuBulkLeavePost_Click(object sender, EventArgs e)
+        {
+            Form t = Application.OpenForms["frmBulkLeaveUpload"];
+            if (t == null)
+            {
+                Attendance.Forms.frmBulkLeaveUpload m = new Attendance.Forms.frmBulkLeaveUpload();
                 m.MdiParent = this;
                 m.Show();
             }

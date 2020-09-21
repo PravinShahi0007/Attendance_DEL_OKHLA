@@ -11,7 +11,21 @@ using System.Net.Mail;
 
 namespace Attendance.Classes
 {
-    
+    public class AttdLeavePost
+    {
+        public int AppID { get; set; }
+        public string EmpUnqID { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
+        public string LeaveTyp { get; set; }
+        public bool HalfDay { get; set; }
+        public bool PostedFlg { get; set; }
+        public string AttdUser { get; set; }
+        public string Remarks { get; set; }
+        public string ERROR { get; set; }
+        public string Location { get; set; }
+    }
+
     
     class Globals
     {
@@ -69,7 +83,7 @@ namespace Attendance.Classes
         public static bool G_HFFLG_LateCome;
         public static int G_HFSEC_EarlyGoing;
         public static int G_HFSEC_LateCome;
-
+        public static int G_GlobalGradeExclude;
 
         public static bool GetGlobalVars()
         {
@@ -83,20 +97,20 @@ namespace Attendance.Classes
             if (hasRows)
             {
                 foreach (DataRow dr in ds.Tables[0].Rows)
-                {                
-                    G_SanDayLimit = Convert.ToInt32(dr["SanDayLimit"].ToString());
-                    G_LateComeSec = Convert.ToInt32(dr["LateComeSec"].ToString());
-                    G_EarlyComeSec = Convert.ToInt32(dr["EarlyComeSec"].ToString());
-                    G_EarlyGoingSec = Convert.ToInt32(dr["EarlyGoingSec"].ToString());
-                    
-                    G_GracePeriodSec = Convert.ToInt32(dr["GracePeriodSec"].ToString());
-                    G_HFFLG_Grace = Convert.ToBoolean(dr["GraceHalfDayFlg"]);
+                {
+                    G_SanDayLimit = (dr["SanDayLimit"] == DBNull.Value ? 0 : Convert.ToInt32(dr["SanDayLimit"].ToString()));
+                    G_LateComeSec = (dr["LateComeSec"] == DBNull.Value ? 0 : Convert.ToInt32(dr["LateComeSec"].ToString()));
+                    G_EarlyComeSec = (dr["EarlyComeSec"] == DBNull.Value ? 0 : Convert.ToInt32(dr["EarlyComeSec"].ToString()));
+                    G_EarlyGoingSec = (dr["EarlyGoingSec"] == DBNull.Value ? 0 : Convert.ToInt32(dr["EarlyGoingSec"].ToString()));
 
-                    G_HFFLG_LateCome = Convert.ToBoolean(dr["LateHalfDayFlg"]);
-                    G_HFFLG_EarlyGoing = Convert.ToBoolean(dr["EarlyGoingHalfDayFlg"]);
-                    G_HFSEC_EarlyGoing = Convert.ToInt32(dr["EarlyGoingHalfDaySec"].ToString());
-                    G_HFSEC_LateCome = Convert.ToInt32(dr["LateHalfDaySec"].ToString());
+                    G_GracePeriodSec = (dr["GracePeriodSec"] == DBNull.Value ? 0 : Convert.ToInt32(dr["GracePeriodSec"].ToString()));
+                    G_HFFLG_Grace = (dr["GraceHalfDayFlg"] == DBNull.Value ? false : Convert.ToBoolean(dr["GraceHalfDayFlg"])) ;
 
+                    G_HFFLG_LateCome = (dr["LateHalfDayFlg"] == DBNull.Value ? false : Convert.ToBoolean(dr["LateHalfDayFlg"]));
+                    G_HFFLG_EarlyGoing = (dr["EarlyGoingHalfDayFlg"] == DBNull.Value ? false : Convert.ToBoolean(dr["EarlyGoingHalfDayFlg"]));
+                    G_HFSEC_EarlyGoing = (dr["EarlyGoingHalfDaySec"] == DBNull.Value ? 0 : Convert.ToInt32(dr["EarlyGoingHalfDaySec"].ToString()));
+                    G_HFSEC_LateCome = (dr["LateHalfDaySec"] == DBNull.Value ? 0 : Convert.ToInt32(dr["LateHalfDaySec"].ToString()));
+                    G_GlobalGradeExclude = (dr["GlobalGradeExclude"] == DBNull.Value?0:Convert.ToInt32(dr["GlobalGradeExclude"].ToString()));
                 }
             }
 

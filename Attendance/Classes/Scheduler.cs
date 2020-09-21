@@ -1169,10 +1169,12 @@ namespace Attendance.Classes
                             rsExec.SetExecutionParameters(executionParams1, "en-us");
                             string substr2 = "JITF-" + dr["Param1WrkGrp"].ToString() + "-ID-" + dr["SubScriptionID"].ToString() + " : Daily Performance Report For " + RptDate.ToString("dd-MMM");
                             results = rsExec.Render(format, deviceInfo, out extension, out mimeType, out encoding, out warnings, out streamIDs);
-                            
+
+                            string tbody = "</br>Dear Sir,</br>Please find the attached file for youre reference</br>* This is system generated mail.";
+
                             MailAttachment m1 = new MailAttachment(results, attchnamePrefix + "Daily Performance Report.xls");
                             Email(dr["EmailTo"].ToString(), dr["EmailCopy"].ToString(), dr["BCCTo"].ToString(),
-                                "Daily Performance Report", substr2, Globals.G_DefaultMailID, "Attendance System", "", "", subscrid, m1);
+                                tbody, substr2, Globals.G_DefaultMailID, Globals.G_DefaultMailID, "", "", subscrid, m1);
                         }
                         else if(ReportType.ToUpper().Contains("ARRIVAL"))
                         {
@@ -1194,8 +1196,11 @@ namespace Attendance.Classes
                             string substr2 = "JITF-" + dr["Param1WrkGrp"].ToString() + "-ID-" + dr["SubScriptionID"].ToString() + " : Daily Arrival Report For " + RptDate.ToString("dd-MMM");
                             results = rsExec.Render(format, deviceInfo, out extension, out mimeType, out encoding, out warnings, out streamIDs);
                             MailAttachment m1 = new MailAttachment(results, attchnamePrefix + "Daily Arrival Report.xls");
+                            
+                            string tbody = "</br>Dear Sir,</br>Please find the attached file for youre reference</br>* This is system generated mail." ;
+                            
                             Email(dr["EmailTo"].ToString(), dr["EmailCopy"].ToString(), dr["BCCTo"].ToString(),
-                                "Daily Arrival Report ", substr2, Globals.G_DefaultMailID, "Attendance System", "", "", subscrid, m1);
+                                tbody, substr2, Globals.G_DefaultMailID, Globals.G_DefaultMailID, "", "", subscrid, m1);
                         }
 
                     }

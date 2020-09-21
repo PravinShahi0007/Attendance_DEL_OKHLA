@@ -69,8 +69,7 @@
             this.cmbRptType.FormattingEnabled = true;
             this.cmbRptType.Items.AddRange(new object[] {
             "Monthly Attendance Report",
-            "Daily Performance Report",
-            "Monthly Lunch Halfday Report"});
+            "Daily Performance Report"});
             this.cmbRptType.Location = new System.Drawing.Point(123, 71);
             this.cmbRptType.Margin = new System.Windows.Forms.Padding(4);
             this.cmbRptType.Name = "cmbRptType";

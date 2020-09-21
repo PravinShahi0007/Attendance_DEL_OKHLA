@@ -129,9 +129,9 @@ namespace Attendance.Forms
                 case "Daily Performance Report":
                     err = ValidateDailyPerformance();
                     break; /* optional */
-                case "Monthly Lunch Halfday Report":
-                    err = ValidateDailyPerformance();
-                    break; /* optional */
+                //case "Monthly Lunch Halfday Report":
+                //    err = ValidateDailyPerformance();
+                //    break; /* optional */
             }
 
             if (!string.IsNullOrEmpty(err))
@@ -216,8 +216,11 @@ namespace Attendance.Forms
                         string substr1 = "Monthly Attendance Report For " + txtDtFrom.Value.ToString("dd-MMM") + " To " + txtDtTo.Value.ToString("dd-MMM");
                         results = rsExec.Render(format, deviceInfo, out extension, out mimeType, out encoding,out warnings, out streamIDs);
                         MailAttachment m = new MailAttachment(results, "Monthly Attendance Report.xls");
+
+                        string tbody = "</br>Dear Sir,</br>Please find the attached file for youre reference</br>* This is system generated mail.";
+                        
                         Email(row["EmailTo"].ToString(), row["EmailCopy"].ToString(), row["BCCTo"].ToString(),
-                            "Monthly Attendance Report", substr1, Globals.G_DefaultMailID, "Attendance System", "", "", subscrid, m);
+                            tbody, substr1, Globals.G_DefaultMailID, Globals.G_DefaultMailID, "", "", subscrid, m);
 
                         break; /* optional */
 
@@ -240,8 +243,11 @@ namespace Attendance.Forms
                         string substr2 = "Daily Performance Report For " + txtDtFrom.Value.ToString("dd-MMM");
                         results = rsExec.Render(format, deviceInfo, out extension, out mimeType, out encoding,out warnings, out streamIDs);
                         MailAttachment m1 = new MailAttachment(results, "Daily Performance Report.xls");
+
+                        tbody = "</br>Dear Sir,</br>Please find the attached file for youre reference</br>* This is system generated mail.";
+                        
                         Email(row["EmailTo"].ToString(), row["EmailCopy"].ToString(), row["BCCTo"].ToString(),
-                            "Daily Performance Report", substr2, Globals.G_DefaultMailID, "Attendance System", "", "", subscrid, m1);
+                            tbody, substr2, Globals.G_DefaultMailID, Globals.G_DefaultMailID, "", "", subscrid, m1);
 
                         break; /* optional */
                     case "Monthly Lunch Halfday Report":
@@ -269,7 +275,7 @@ namespace Attendance.Forms
                         results = rsExec.Render(format, deviceInfo, out extension, out mimeType, out encoding,out warnings, out streamIDs);
                         MailAttachment m2 = new MailAttachment(results, "Monthly Lunch Halfday Report.xls");
                         Email(row["EmailTo"].ToString(), row["EmailCopy"].ToString(), row["BCCTo"].ToString(),
-                            "Monthly Lunch Halfday Report", substr3, Globals.G_DefaultMailID, "Attendance System", "", "", subscrid, m2);
+                            "Monthly Lunch Halfday Report", substr3, Globals.G_DefaultMailID, Globals.G_DefaultMailID, "", "", subscrid, m2);
 
 
 

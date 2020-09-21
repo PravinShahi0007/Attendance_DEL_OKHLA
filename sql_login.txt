@@ -1,0 +1,20 @@
+SQL Server Login
+Login : admin
+password : Jindal@123
+
+
+Report Server URL : http://172.16.6.57/reportserver/
+
+Report Viewer Logins
+
+login : attdreport
+password : attd@123
+
+
+Server : 172.16.6.57
+login : jindalwater\ashish.tilak
+password : Jindal@123
+
+ 
+
+
